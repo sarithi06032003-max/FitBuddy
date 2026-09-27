@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitBuddy - Fitness Partner</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px;color:#333}
+.container{max-width:800px;margin:auto;background:white;border-radius:20px;padding:30px;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+h1{text-align:center;color:#667eea;font-size:36px;margin-bottom:10px}
+.subtitle{text-align:center;color:#666;margin-bottom:25px}
+.form-group{margin-bottom:15px;text-align:left}
+label{font-weight:bold;display:block;margin-bottom:5px}
+input,select{width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;font-size:16px}
+button{width:100%;padding:14px;background:#667eea;color:white;border:none;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;margin-top:10px}
+button:hover{background:#5568d3}
+.result{margin-top:20px;padding:20px;background:#f0f7ff;border-radius:10px;display:none}
+.result.show{display:block}
+.bmi-value{font-size:32px;font-weight:bold;color:#667eea;text-align:center}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>💪 FitBuddy</h1>
+<p class="subtitle">Your Personal AI Fitness Partner</p>
+
+<div class="form-group"><label>Weight (kg)</label><input type="number" id="weight" placeholder="Ex: 65"></div>
+<div class="form-group"><label>Height (cm)</label><input type="number" id="height" placeholder="Ex: 165"></div>
+<div class="form-group"><label>Age</label><input type="number" id="age" placeholder="Ex: 21"></div>
+<div class="form-group">
+<label>Goal</label>
+<select id="goal">
+<option>Weight Loss</option>
+<option>Muscle Gain</option>
+<option>Maintenance</option>
+</select>
+</div>
+
+<button onclick="generatePlan()">Generate My Plan 🚀</button>
+
+<div id="resultBox" class="result">
+<div class="bmi-value" id="bmiText"></div>
+<p id="planText" style="margin-top:15px;line-height:1.6"></p>
+</div>
+</div>
+
+<script>
+function generatePlan(){
+ let w=document.getElementById('weight').value;
+ let h=document.getElementById('height').value/100;
+ let age=document.getElementById('age').value;
+ let goal=document.getElementById('goal').value;
+ if(!w||!h||!age){alert('Please fill all details ma!');return;}
+ let bmi=(w/(h*h)).toFixed(1);
+ let plan="";
+ if(bmi<18.5) plan="🔹 Underweight: High protein diet (Eggs, Chicken, Dal). Workout: Strength training 4x week.";
+ else if(bmi<25) plan="🔹 Normal: Balanced diet. Workout: Mix of Cardio + Strength. Goal: "+goal;
+ else if(bmi<30) plan="🔹 Overweight: Calorie deficit diet. Workout: Cardio 5x week + Diet control. Goal: "+goal;
+ else plan="🔹 High BMI: Low carb diet, Walking 10k steps daily. Consult doctor also.";
+ document.getElementById('bmiText').innerText="Your BMI: "+bmi;
+ document.getElementById('planText').innerText=plan+" \n\n✨ Diet Chart & Workout will be personalized in full version!";
+ document.getElementById('resultBox').classList.add('show');
+}
+</script>
+</div>
+</body>
+</html>
